@@ -9,15 +9,13 @@ RF24 radio(9, 10);         // Erstelle ein RF24 Objekt mit den Pins 9 (CE) und 1
 byte node_A_address[6] = "NodeA";   // Adresse des eigenen Knotens
 byte node_B_address[6] = "NodeB";   // Adresse des anderen Knotens
 
-const uint64_t pipe = 0xE8E8F0F0E1LL;   // Kommunikations-Pipe
-
 unsigned long lastDataReceivedTime = 0; // Zeitpunkt des letzten Dateneingangs
 unsigned long heartbeatInterval = 3000; // Intervall für Heartbeat (alle 3 Sekunden)
 bool radioConnected = false;            // Status der Funkverbindung
-int dist_step_01 = 80;      // Entfernung für den ersten Balken(von 4 Balken pro Sensor)
-int dist_step_02 = 50;      // Entfernung für den zweiten Balken
-int dist_step_03 = 25;      // Entfernung für den dritten Balken
-int dist_step_04 = 10;      // Entfernung für den vierten Balken
+const int dist_step_01 = 80;      // Entfernung für den ersten Balken(von 4 Balken pro Sensor)
+const int dist_step_02 = 50;      // Entfernung für den zweiten Balken
+const int dist_step_03 = 25;      // Entfernung für den dritten Balken
+const int dist_step_04 = 10;      // Entfernung für den vierten Balken
 int sensor_distances[3];    // Array für die Sensorwerte
 int NoFunkSignalCounter = 0;    // Zähler für fehlende Funkverbindung
 
