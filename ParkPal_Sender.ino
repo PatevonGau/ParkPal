@@ -12,8 +12,7 @@
 // Hardware-Konfiguration des nRF24L01 Funkmodul auf den SPI-Bus mit Pins 9 & 10
 RF24 radio(9, 10);
 
-// Adressen für die Kommunikation zwischen den nRF24L01 Modulen
-byte node_A_address[6] = "NodeA";
+// Adressen für das Empfänger nRF24L01 Modulen
 byte node_B_address[6] = "NodeB";
 
 // Struktur für die Daten, die übertragen werden sollen
@@ -70,11 +69,8 @@ class RFTransmitter {
     void sendDistances(int distance1, int distance2, int distance3) {
       // Erstelle ein Datenpaket mit den Entfernungen
       DataPacket data = {distance1, distance2, distance3};
-      // Radio stoppen, um Daten zu senden
-      radio.stopListening();
-
-        // Daten über das Funkmodul senden
-      bool result = radio.write(&data, sizeof(DataPacket));
+      // Daten über das Funkmodul senden
+      radio.write(&data, sizeof(DataPacket));
     }
 };
 
@@ -89,8 +85,7 @@ void setup() {
   radio.begin();
   radio.setPALevel(RF24_PA_LOW);
   radio.openWritingPipe(node_B_address);
-  radio.openReadingPipe(1, node_A_address);
-  radio.startListening();
+  radio.stopListening(); // Modul in den Sendemodus versetzen
 }
 
 void loop() {
